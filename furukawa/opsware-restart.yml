@@ -1,0 +1,14 @@
+---
+#esse playbook eh designado para rodar de tempos e forcar uma parada
+#do agente do opsware
+
+- hosts: linux
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+  - name: recycle agent
+    raw: /etc/init.d/opsware-agent stop && /etc/init.d/opsware-agent start
+    ignore_errors: yes
+...
