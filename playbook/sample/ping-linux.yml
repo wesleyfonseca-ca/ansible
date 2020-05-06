@@ -1,8 +1,0 @@
----
-- hosts: all
-  tasks:
-
-        - name: Ping linux
-          ping:
-          ignore_errors: yes
-
