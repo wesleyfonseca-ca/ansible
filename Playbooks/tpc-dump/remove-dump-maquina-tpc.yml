@@ -1,0 +1,21 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina  (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Gera dump bancos DAT e copia para uma maquina '
+  hosts: mysql_tpc
+
+  tasks:
+
+    - name: Removendo arquivos de backup da 
+      win_find:
+        paths: E:\Mysql-Dump
+      register: file_fetch_remove
+
+    - win_file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ file_fetch_remove.files }}"

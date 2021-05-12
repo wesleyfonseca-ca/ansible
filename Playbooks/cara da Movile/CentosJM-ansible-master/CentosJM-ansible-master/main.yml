@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: yes
+  roles:
+# SISTEMA
+# - hostname 
+    - update 
+#    - common
+    # - sudo
+    #- LVM
+    #    - firewall_selinux
+    # - limits
+    # - kernel4
+    #    - reboot
+    #    - history
+    # - diretorio
+# APLICACOES
+    # - cloud-tools
+    #- gitlab 
+    # - node-trend
+    # - dhcpserver
+    # - docker-ce
+    # - ansible-role-gitlab
+    # - vault

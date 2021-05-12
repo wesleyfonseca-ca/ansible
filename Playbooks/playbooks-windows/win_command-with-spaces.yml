@@ -1,0 +1,14 @@
+---
+- name: Win Command
+  hosts: all
+  gather_facts: no
+  tasks:
+
+    - name: Roda comando
+      win_shell: powershell.exe dir
+      args:
+        chdir: C:\Users\svc_ansible\Saved Games
+      register: comando
+
+    - debug:
+        var: comando.stdout_lines

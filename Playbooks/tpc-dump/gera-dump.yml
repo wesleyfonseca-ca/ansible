@@ -1,0 +1,32 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina 10.58.49.55 (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Gera dump bancos DAT e copia para uma maquina 1.1.1.1'
+  hosts: mysql_tpc
+
+  tasks:
+
+    - name: 'Gerando dump'
+      win_command: "{{ item }}"
+      with_items:
+        - cmd.exe /c mysqldump -h 1.1.1.1 -u root -p"{{ password }}" automation_prd > W:\Mysql-Dump\automation_prd-{{ansible_date_time.date}}.sql --max_allowed_packet=1024M
+      register: task_result
+      until: task_result.rc == 0
+      retries: 5
+      delay: 300
+
+    - name: Removendo arquivos de backup da 1.1.1.1
+      win_find:
+        paths: W:\Mysql-Dump
+        age: 5d
+        file_type: file
+      register: file_fetch_remove
+
+    - win_file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ file_fetch_remove.files }}"

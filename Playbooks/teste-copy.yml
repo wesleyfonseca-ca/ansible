@@ -1,0 +1,32 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina 1.1.1.1 (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Gera dump bancos DAT e copia para uma maquina 1.1.1.1'
+  hosts: mysql_tpc
+
+  tasks:
+
+    - name: Listando arquivos a serem copiados
+      win_find:
+        paths: E:\Mysql-Dump
+      register: file_fetch
+
+    - name: 'Copiando arquivos de dump para 1.1.1.1 /var/backup-mysql-dat'
+      fetch:
+        src: "{{ item.path }}"
+        dest: /var/backup-mysql-dat/
+        #dest: /tmp/fetch
+        flat: yes
+      with_items: "{{ file_fetch.files }}"
+
+
+#- name: 'Apagando dados antigos 1.1.1.1 (/var/backup-mysql-dat)'
+#  hosts: all
+#  tasks:
+#
+#    - name: testando
+#      command: docker cp awx_task:/var/backup-mysql-dat/. /var/backup-mysql-dat/

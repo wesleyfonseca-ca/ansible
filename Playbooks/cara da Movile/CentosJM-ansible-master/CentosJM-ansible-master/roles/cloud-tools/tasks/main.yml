@@ -1,0 +1,15 @@
+---
+# tasks file for server
+- name: Download Google repo
+  command: wget https://raw.githubusercontent.com/juliomauro/arquivos-diversos/master/google-cloud-sdk.repo -O /etc/yum.repos.d/google-cloud-sdk.repo
+  ignore_errors: no
+  become: yes
+
+- name: Install AWS and Google Cloud Packages
+  yum:
+     name: "{{ item }}"
+     state: latest
+  become: yes
+  with_items:
+     - awscli
+     - google-cloud-sdk

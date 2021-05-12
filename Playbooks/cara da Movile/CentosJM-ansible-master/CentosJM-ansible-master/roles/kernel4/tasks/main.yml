@@ -1,0 +1,21 @@
+---
+# tasks file for server
+- name: Get GPG KEY Kernel 4 repo
+  command: rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+  ignore_errors: no
+  become: yes  
+
+- name: Install Kernel 4 repo
+  command: rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm 
+  ignore_errors: yes
+  become: yes  
+
+- name: Install Kernel 4
+  command: yum --enablerepo=elrepo-kernel install kernel-ml -y
+  ignore_errors: no
+  become: yes  
+
+- name: Enable Kernel 4 on boot
+  command: grub2-set-default 0 
+  ignore_errors: no
+  become: yes  

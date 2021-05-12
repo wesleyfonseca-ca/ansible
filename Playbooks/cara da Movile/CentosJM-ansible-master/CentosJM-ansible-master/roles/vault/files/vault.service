@@ -1,0 +1,13 @@
+[Unit]
+Description=vault server
+Requires=network-online.target
+After=network-online.target consul.service
+
+[Service]
+User=vault
+Group=vault
+Restart=on-failure
+ExecStart=/usr/local/bin/vault server -config=/etc/vault/config.json
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+---
+# tasks file for server
+- name: Change hostname
+  hostname:
+    name: "{{ hostname }}"
+
+- name: Change hosts file
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.1.1 {{ hostname }}"
+    state: present

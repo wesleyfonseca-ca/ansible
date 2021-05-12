@@ -1,0 +1,17 @@
+---
+
+- name: Update/Upgrade Systems - Starting Deploy
+  hosts: all
+  tasks:
+        - name: CentOS | Update System
+          yum: name=* state=latest update_cache=yes
+          when: ansible_distribuition == "CentOS" or ansible_distribuition == "RedHat"
+
+        - name: CentOS | Update System
+          apt: update_cache=yes
+          when: ansible_distribuition == "Debian" or ansible_distribuition == "Ubuntu"
+
+        - name: Debian | Upgrade System
+          apt: name=* state=latest
+          when: ansible_distribuition == "Debian" or ansible_distribuition == "Ubuntu"
+

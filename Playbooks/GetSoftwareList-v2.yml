@@ -1,0 +1,19 @@
+---
+##################################################################
+#           playbook para coletar softwares instalados           #
+#              usa o wmic para obter esse resultado              #
+#             autor raphael.araujo                                #
+#                            abr-2020                            #
+##################################################################
+
+- hosts: windows
+  gather_facts: no
+  
+  tasks:
+    - name: colectar softwares instalados    
+      win_command: wmic product get name,version
+      register: all_softs
+      
+    - debug:
+        msg: "{{ all_softs.stdout_lines }}"
+...

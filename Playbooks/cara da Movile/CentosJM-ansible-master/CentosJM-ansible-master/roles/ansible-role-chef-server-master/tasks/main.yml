@@ -1,0 +1,14 @@
+---
+# tasks file for ansible-role-chef-server/
+
+- name: Install Chef Server
+  apt:
+    deb:   https://packages.chef.io/files/stable/chef-server/12.17.33/ubuntu/16.04/chef-server-core_12.17.33-1_amd64.deb
+    state: present
+
+- name: Configure Chef Server
+  command: chef-server-ctl reconfigure
+
+- name: Create admin user
+  command: chef-server-ctl user-create "$CHEF_USER_NAME" "$CHEF_FIRST_NAME" "$CHEF_LAST_NAME" "$CHEF_EMAIL" "$CHEF_PASSWORD" --filename /root/chef_admin.pem
+

@@ -1,0 +1,34 @@
+---
+- name: Roda script Windows
+  hosts: all
+  gather_facts: no
+  tasks:
+
+  - name: Copia arquivo para o host
+    win_copy:
+      src: '/home/ansible/script-airtomic/WIN_HPOA_HealthCheckFailure.ps1'
+      dest: 'C:\Apps\WIN_HPOA_HealthCheckFailure.ps1'
+
+  - name: Parando servico
+    win_command: cmd.exe /c opcagt -stop
+
+  - name: Parando servico
+    win_command: cmd.exe /c opcagt -kill
+
+  - name: Pausa
+    pause:
+      minutes: 2   
+
+  - name: Executando script
+    win_command: powershell.exe C:\Apps\WIN_HPOA_HealthCheckFailure.ps1
+    register: saidascript
+
+
+  - name: Exibindo o resultado
+    debug:
+      msg: "{{saidascript.stdout}}"
+
+  - name: Remove script
+    win_file:
+      path: C:\Apps\WIN_HPOA_HealthCheckFailure.ps1
+      state: absent

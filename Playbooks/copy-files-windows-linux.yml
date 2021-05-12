@@ -1,0 +1,16 @@
+---
+
+############################################
+### Copia arquivos de uma maquina windows ##
+### para a maquina Linux                  ##
+############################################
+
+- name: Copy Files Windows to Linux
+  hosts: windows
+
+  tasks:
+    - name: 'Copy files'
+      fetch:
+        src: C:\Users\Administrator\Desktop\ConfigureRemotingForAnsible.ps1
+        dest: /etc/ansible/teste/
+        flat: yes

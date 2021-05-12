@@ -1,0 +1,13 @@
+---
+
+- name: Teste
+  hosts: "{{ hostname }}"
+  tasks:
+
+    - name: Teste
+      win_command: powershell.exe hostname
+      register: resultado
+
+    - debug:
+#        msg: "Pre Check Script: {{ pre_check.stdout_lines }}"
+        var: resultado.stdout_lines

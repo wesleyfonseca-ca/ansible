@@ -1,0 +1,13 @@
+---
+
+- name: Change kernel parameters
+  sysctl: name="{{ item.key }}" value="{{ item.value }}" state=present
+  with_dict: '{{ kernel_params }}'
+  ignore_errors: yes
+
+- name: Change limits for root
+  pam_limits:
+    domain: root
+    limit_type: soft
+    limit_item: nofile
+    value: 64000

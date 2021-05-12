@@ -1,0 +1,16 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina             (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Para instâncias do SQL na máquina SAOS1068'
+  hosts: mysql_tpc
+
+  tasks:
+
+    - name: Listando arquivos a serem copiados
+      win_find:
+        paths: E:\Mysql-Dump
+      register: file_fetch

@@ -1,0 +1,42 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina  (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Gera dump bancos DAT e copia para uma maquina '
+  hosts: mysql_tpc
+
+  tasks:
+
+#    - name: 'Gerando dump'
+#      win_command: "{{ item }}"
+#      with_items:
+#        - cmd.exe /c mysqldump -h 1.1.1.1 -u root -p"{{ password }}" automation_prd > E:\Mysql-Dump\automation_prd-{{ansible_date_time.date}}.sql
+#        - cmd.exe /c mysqldump -h 1.1.1.1 -u root -p"{{ password }}" hpooprd > E:\Mysql-Dump\hpooprd-{{ansible_date_time.date}}.sql
+#        - cmd.exe /c mysqldump -h 1.1.1.1 -u root -pblabla customer_portal > E:\Mysql-Dump\customer_portal-{{ansible_date_time.date}}-3.sql                        
+
+    - name: Listando arquivos a serem copiados
+      win_find:
+        paths: E:\Mysql-Dump
+      register: file_fetch
+
+    - name: 'Copiando arquivos'
+      win_command: cmd.exe /c dir H:\
+      #with_items: "{{ file_fetch.files }}" 
+
+#    - name: 'Copiando arquivos'
+#      win_robocopy:
+#        src: E:\Mysql-Dump\customer_portal-2020-06-26-1.sql
+#        dest: \\10.58.49.75\Mysql-Dump\
+
+#    - name: 'Copiando arquivos'
+#      win_copy:
+#        src: 'E:\Mysql-Dump\customer_portal-2020-06-26-1.sql'
+#        dest: 'A:\Files\'
+#        remote_src: yes
+
+#    - name: 'Copiando arquivos'
+#      win_command: cmd.exe /c copy E:\Mysql-Dump\customer_portal-2020-06-26-1.sql A:\
+      #with_items: "{{ file_fetch.files }}" 

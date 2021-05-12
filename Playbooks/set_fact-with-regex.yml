@@ -1,0 +1,24 @@
+---
+- name: Find Guest's Folder using name
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Find VM
+      vmware_guest_find:
+        hostname: 
+        username: 
+        password: 
+        validate_certs: no
+        name: -VCSA
+      register: vm_folder
+      ignore_errors: yes
+
+    - debug:
+        msg: "{{ vm_folder.folders }}"
+
+    - name: Registra o resultado na variavel vm_folder
+      set_fact:
+        vm_folder: "{{ vm_folder.folders | regex_replace('/','') | regex_replace('vm(.*)','') }}"
+
+    - debug:
+        msg: "{{ vm_folder }}"

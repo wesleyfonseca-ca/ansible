@@ -1,0 +1,23 @@
+---
+########################################################
+# Esse playbook é responsável por:                     #
+# - Configurar a chave publica do usuário ansible para #
+# acesso sem necessidade de passar senha               #
+#                                                      #
+# Autor: wesley.carvalho                                #
+# Data: fev-2020                                       #
+########################################################
+
+- name: Configura chave publica usuário ansible
+  hosts: linux 
+ 
+  tasks:
+    - name: 'Cria diretorio .ssh se não existir'
+      file:
+        path: '/home/ansible/.ssh'
+        state: directory
+        mode: '0755'
+
+    - name: 'Copia chave publica'
+      shell:
+      	cmd: echo "ssh-rsa AAAAB3NzaC..." >> /home/ansible/.ssh/authorized_keys

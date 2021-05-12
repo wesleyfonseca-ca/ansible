@@ -1,0 +1,27 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina 10.58.49.55 (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Gera dump bancos DAT e copia para uma maquina 10.58.49.55'
+  hosts: mysql_tpc
+
+  tasks:
+
+    - name: Listando arquivos a serem copiados
+      win_find:
+        paths: E:\Mysql-Dump
+      register: file_fetch
+
+#    - name: 'Copiando arquivos de dump para 10.58.49.55 /var/backup-mysql-dat'
+#      fetch:
+#        src: "{{ item.path }}"
+#        dest: /var/backup-mysql-dat/
+#        #dest: /tmp/fetch
+#        flat: yes
+#      with_items: "{{ file_fetch.files }}"
+
+    - name: 'Copia dump'
+      win_command: powershell.exe Move-Item -path E:\Mysql-Dump\* -destination \\10.58.49.75\Mysql-Dump\

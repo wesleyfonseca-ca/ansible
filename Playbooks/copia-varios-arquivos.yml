@@ -1,0 +1,10 @@
+---
+- hosts: linux
+  tasks:
+
+   - name: Copia diretorio
+     copy:
+       src: "{{ item }}"
+       dest: /tmp
+     with_fileglob:
+       - /home/ansible/teste/arquivo-*

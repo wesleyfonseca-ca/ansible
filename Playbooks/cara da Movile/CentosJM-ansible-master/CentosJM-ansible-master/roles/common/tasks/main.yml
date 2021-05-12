@@ -1,0 +1,34 @@
+---
+# tasks file for server
+- name: Install EPEL repo
+  yum:
+     name: "{{ item }}"
+     state: latest
+  become: yes
+  with_items:
+     - epel-release   
+
+- name: Install Packages
+  yum:
+     name: "{{ item }}"
+     state: latest
+  become: yes
+  with_items:
+     - bind
+     - bind-utils
+     - device-mapper-persistent-data 
+     - git
+     - htop
+     - ipa-client
+     - lsof
+     - lvm2
+     - mtr 
+     - net-tools
+     - open-vm-tools
+     - python-pip
+     - tcpdump
+     - unzip
+     - wget
+     - yum-utils 
+     - ncdu
+     - iperf3

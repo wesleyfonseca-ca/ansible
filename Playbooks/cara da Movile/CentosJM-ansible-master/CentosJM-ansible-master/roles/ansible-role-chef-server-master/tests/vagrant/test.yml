@@ -1,0 +1,12 @@
+---
+- hosts: all 
+  become: yes
+  become_method: sudo
+  environment:
+    CHEF_USER_NAME: "{{ lookup('env', 'CHEF_USER_NAME') }}"
+    CHEF_FIRST_NAME: "{{ lookup('env', 'CHEF_FIRST_NAME') }}"
+    CHEF_LAST_NAME: "{{ lookup('env', 'CHEF_LAST_NAME') }}"
+    CHEF_EMAIL: "{{ lookup('env', 'CHEF_EMAIL') }}"
+    CHEF_PASSWORD: "{{ lookup('env', 'CHEF_PASSWORD') }}"
+  roles:
+    - { role: ../../../ansible-role-chef-server }

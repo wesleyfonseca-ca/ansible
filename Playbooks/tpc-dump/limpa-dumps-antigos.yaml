@@ -1,0 +1,21 @@
+- name: 'Apagando dados antigos  (/var/backup-mysql-dat)'
+  hosts: 
+  tasks:
+
+    - command: "{{ item }}"
+      with_items:
+        - docker cp awx_task:/var/backup-mysql-dat/. /var/backup-mysql-dat/
+        - docker exec -it awx_task rm -rf /var/backup-mysql-dat/
+
+    # find all files that are older than six hours
+    - find:
+        paths: "/var/backup-mysql-dat/"
+        age: "21600"
+        file_type: file
+      register: remove_bkp
+
+    # delete all files that are older than six hours
+    - file:
+        path: "{{ item.path }}" 
+        state: absent
+      with_items: "{{ remove_bkp.files }}" 

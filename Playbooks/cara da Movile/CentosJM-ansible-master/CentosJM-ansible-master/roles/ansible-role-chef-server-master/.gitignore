@@ -1,0 +1,4 @@
+*.log
+*.retry
+.vagrant/
+example_vars.sh

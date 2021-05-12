@@ -1,0 +1,21 @@
+---
+# tasks file for server
+- name: download docker repo 
+  command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  ignore_errors: yes
+  become: yes
+
+- name: Install docker Packages
+  yum:
+     name: "{{ item }}"
+     state: latest
+  become: yes
+  with_items:
+     - docker-ce
+
+- name: start docker
+  service:
+     name: docker
+     state: restarted
+     enabled: yes
+  become: yes

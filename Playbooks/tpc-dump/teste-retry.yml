@@ -1,0 +1,20 @@
+---
+
+####################################################################
+### Gera dump dos bancos automation_prd e hpooprod                ##
+### e os copia para a maquina 10.58.49.55 (/var/backup-mysql-dat) ##
+####################################################################
+
+- name: 'Gera dump bancos DAT e copia para uma maquina '
+  hosts: mysql_tpc
+
+  tasks:
+
+    - name: 'Gerando dump'
+      win_command: "{{ item }}"
+      with_items:
+        - cmd.exe /c mysqldump -h 1.1.1.1 -u root -pblablabla customer_portal > E:\Mysql-Dump\customer_portal-{{ansible_date_time.date}}-3.sql
+      register: task_result
+      until: task_result.rc == 0
+      retries: 2
+      delay: 300

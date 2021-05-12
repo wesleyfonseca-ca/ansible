@@ -1,0 +1,12 @@
+---
+  - name: Download public key
+    get_url:
+      url: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
+      dest: "{{ ansible_env.HOME }}/.ssh/openstack_key.pub"
+
+  - name: Create ansible_ssh keypair 
+    os_keypair:
+      cloud: ospcloud
+      state: present
+      name: ansible_ssh
+      public_key_file: "{{ ansible_env.HOME }}/.ssh/openstack_key.pub"

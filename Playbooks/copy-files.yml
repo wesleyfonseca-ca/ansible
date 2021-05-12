@@ -1,0 +1,11 @@
+---
+
+- name: Copy Files
+  hosts: windows
+
+  tasks:
+    - name: 'Copy files'
+      win_copy:
+        src: 'C:\Users\Administrator\Desktop\ConfigureRemotingForAnsible.ps1'
+        dest: '/etc/ansible/teste/'
+        remote_src: yes

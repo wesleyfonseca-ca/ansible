@@ -1,0 +1,11 @@
+- name: 'Exibe mensagem'
+  hosts: localhost
+  vars:
+    app:
+      server: "host1"
+      port: "8888"
+  tasks:
+
+    - debug:
+#        msg: "Ola de {{ variavel }} !"
+        msg: "{{ app.server }} = {{ app.port }}"

@@ -1,0 +1,9 @@
+---
+# tasks file for server
+- name: Install EPEL repo
+  yum:
+     name: "{{ item }}"
+     state: latest
+  become: yes
+  with_items:
+     - epel-release
