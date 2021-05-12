@@ -1,6 +1,0 @@
----
-
-- name: Disabling tcp_sack
-  sysctl: name="{{ item.key }}" value="{{ item.value }}" state=present
-  with_dict: '{{ kernel_params }}'
-  ignore_errors: yes

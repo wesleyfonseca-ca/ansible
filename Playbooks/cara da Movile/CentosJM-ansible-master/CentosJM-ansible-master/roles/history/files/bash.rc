@@ -1,3 +1,0 @@
-PS1='\n(\e[34;1m\u@\h\e[m - \w @\e[32;1m\t\e[m) \n\l:> '
-
-export PROMPT_COMMAND='d=`date "+%d/%m/%Y %H:%M:%S"`; t=`tty`; h=`history 1`; u=`whoami`; echo -n "$d - " >> /var/spool/.bash_history.time; echo -n "$t - " >> /var/spool/.bash_history.time; echo -n "$u - " >> /var/spool/.bash_history.time; echo $h >> /var/spool/.bash_history.time'
