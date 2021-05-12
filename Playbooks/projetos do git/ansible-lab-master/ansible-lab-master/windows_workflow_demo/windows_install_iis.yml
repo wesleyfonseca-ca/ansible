@@ -1,7 +1,0 @@
----
-- name: Windows Install IIS
-  hosts: "{{ windows_vm_hostname }}"
-  gather_facts: false
-
-  roles:
-    - windows_install_iis
